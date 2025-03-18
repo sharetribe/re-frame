@@ -69,7 +69,7 @@
     (console :warn
              "re-frame: Subscribe was called outside of a reactive context.\n"
              "https://day8.github.io/re-frame/FAQs/UseASubscriptionInAnEventHandler/"
-             (str query)))
+             (str query))))
 
 (defn subscribe
   ([query]
