@@ -66,6 +66,7 @@
 (defn warn-when-not-reactive
   [query]
   (when (and debug-enabled? (not (reactive?)))
+    (assert false (str "re-frame: Subscribe was called outside of a reactive context: " query))
     (console :warn
              "re-frame: Subscribe was called outside of a reactive context.\n"
              "https://day8.github.io/re-frame/FAQs/UseASubscriptionInAnEventHandler/"
