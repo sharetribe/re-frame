@@ -64,15 +64,16 @@
 ;; -- subscribe ---------------------------------------------------------------
 
 (defn warn-when-not-reactive
-  []
+  [query]
   (when (and debug-enabled? (not (reactive?)))
     (console :warn
              "re-frame: Subscribe was called outside of a reactive context.\n"
-             "https://day8.github.io/re-frame/FAQs/UseASubscriptionInAnEventHandler/")))
+             "https://day8.github.io/re-frame/FAQs/UseASubscriptionInAnEventHandler/"
+             (str query)))
 
 (defn subscribe
   ([query]
-   (warn-when-not-reactive)
+   (warn-when-not-reactive query)
    (trace/with-trace {:operation (first-in-vector query)
                       :op-type   :sub/create
                       :tags      {:query-v query}}
@@ -91,7 +92,7 @@
            (cache-and-return query [] (handler-fn app-db query)))))))
 
   ([query dynv]
-   (warn-when-not-reactive)
+   (warn-when-not-reactive query)
    (trace/with-trace {:operation (first-in-vector query)
                       :op-type   :sub/create
                       :tags      {:query-v query
